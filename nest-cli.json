@@ -1,0 +1,43 @@
+{
+  "collection": "@nestjs/schematics",
+  "monorepo": true,
+  "sourceRoot": "apps",
+  "projects": {
+    "api": {
+      "type": "application",
+      "root": "apps/api",
+      "entryFile": "main",
+      "sourceRoot": "apps/api",
+      "compilerOptions": {
+        "tsConfigPath": "apps/api/tsconfig.json"
+      }
+    },
+    "gateway": {
+      "type": "application",
+      "root": "apps/gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/gateway",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gateway/tsconfig.app.json"
+      }
+    },
+    "notify": {
+      "type": "application",
+      "root": "apps/notify",
+      "entryFile": "main",
+      "sourceRoot": "apps/notify",
+      "compilerOptions": {
+        "tsConfigPath": "apps/notify/tsconfig.app.json"
+      }
+    },
+    "worker": {
+      "type": "application",
+      "root": "apps/worker",
+      "entryFile": "main",
+      "sourceRoot": "apps/worker",
+      "compilerOptions": {
+        "tsConfigPath": "apps/worker/tsconfig.app.json"
+      }
+    }
+  }
+}

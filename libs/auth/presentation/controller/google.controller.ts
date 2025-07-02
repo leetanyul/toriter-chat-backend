@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Req } from '@nestjs/common';
+import { Controller, Post, Body, Get, Req, Query, Param } from '@nestjs/common';
 import { AuthUserCase } from '../../application/use-case/auth.use-case';
 import {
   ResponseModel,
@@ -11,6 +11,20 @@ import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { Logger } from 'nestjs-pino';
 import { PinoLoggerService } from '@/libs/shared/logger/pino-logger.service';
+import { RateLimit } from 'nestjs-rate-limiter';
+
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
+export class TestParamDto {
+  @IsString()
+  @IsNotEmpty()
+  message: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @Type(() => Number)
+  d: number;
+}
 
 @Controller('google')
 export class GoogleController {
@@ -21,6 +35,7 @@ export class GoogleController {
   ) {}
 
   @Post('login')
+  @RateLimit({ points: 10, duration: 60 })
   async login(
     @Body() loginDto: GoogleLoginRequestDto,
   ): Promise<ResponseModel<GoogleLoginResponseDto>> {
@@ -39,6 +54,12 @@ export class GoogleController {
 
   @Get('health')
   async test(@Req() req: Request): Promise<ResponseModel<string>> {
+    this.logger.log('health check called');
+    return ResponseModel.ok('health');
+  }
+
+  @Get('test/:message/:d')
+  async test2(@Param() params: TestParamDto): Promise<ResponseModel<string>> {
     this.logger.log('health check called');
     return ResponseModel.ok('health');
   }

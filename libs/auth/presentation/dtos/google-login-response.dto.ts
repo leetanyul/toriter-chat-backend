@@ -1,15 +1,45 @@
+import { Expose } from 'class-transformer';
 import { GoogleUserInfoResponseModel } from '@/libs/auth/domain/models/google-user-info-response.model';
 
 export class GoogleLoginResponseDto {
+  @Expose()
+  readonly sub: string;
+
+  @Expose()
+  readonly name: string;
+
+  @Expose()
+  readonly givenName: string;
+
+  @Expose()
+  readonly familyName: string;
+
+  @Expose()
+  readonly picture: string;
+
+  @Expose()
+  readonly email: string;
+
+  @Expose()
+  readonly emailVerified: boolean;
+
   constructor(
-    public readonly sub: string,
-    public readonly name: string,
-    public readonly givenName: string,
-    public readonly familyName: string,
-    public readonly picture: string,
-    public readonly email: string,
-    public readonly emailVerified: boolean,
-  ) {}
+    sub: string,
+    name: string,
+    givenName: string,
+    familyName: string,
+    picture: string,
+    email: string,
+    emailVerified: boolean,
+  ) {
+    this.sub = sub;
+    this.name = name;
+    this.givenName = givenName;
+    this.familyName = familyName;
+    this.picture = picture;
+    this.email = email;
+    this.emailVerified = emailVerified;
+  }
 
   static fromLoginModel(
     model: GoogleUserInfoResponseModel,

@@ -12,9 +12,15 @@ import {
 import { SharedModule } from '@/libs/shared/shared.module';
 import { RouterModule } from '@nestjs/core';
 import { AuthApiModule } from '@/apps/api/modules/auth-api.module';
+import { RateLimiterModule } from 'nestjs-rate-limiter';
+import { SampleApiModule } from '@/apps/api/modules/sample-api.module';
 
 @Module({
   imports: [
+    RateLimiterModule.register({
+      points: 10, // 10 requests
+      duration: 60, // per 60 seconds
+    }),
     JwtModule.register({
       secret: process.env.JWT_ACCESS_TOKEN_SECRET,
       signOptions: { expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRATION_TIME },
@@ -32,7 +38,12 @@ import { AuthApiModule } from '@/apps/api/modules/auth-api.module';
         path: 'auth',
         module: AuthApiModule,
       },
+      {
+        path: 'sample',
+        module: SampleApiModule,
+      },
     ]),
+    SampleApiModule,
     AuthApiModule,
     UserInfrastructureModule,
     SharedModule,

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AuthInfrastructureModule } from './infrastructure/auth.infrastructure.module';
-import { AuthApplicationModule } from './application/auth.application.module';
-import { AuthDomainModule } from './domain/auth.domain.module';
-import { AuthPresentationModule } from './presentation/auth.presentation.module';
+import { AuthInfrastructureModule } from '@libs/auth/infrastructure/auth.infrastructure.module';
+import { AuthApplicationModule } from '@libs/auth/application/auth.application.module';
+import { AuthDomainModule } from '@libs/auth/domain/auth.domain.module';
+import { AuthPresentationModule } from '@libs/auth/presentation/auth.presentation.module';
 
 @Module({
   imports: [

@@ -7,6 +7,7 @@ import { PinoLoggerService } from '@/libs/shared/logger/pino-logger.service';
 import { multistream, stdTimeFunctions } from 'pino';
 import { RequestContextService } from '@/libs/shared/context/request-context.service';
 import { TraceIdMiddleware } from '@/libs/shared/context/trace-id.middleware';
+import { ShutdownService } from '@/libs/shared/services/shutdown.service';
 
 @Module({
   imports: [
@@ -39,7 +40,12 @@ import { TraceIdMiddleware } from '@/libs/shared/context/trace-id.middleware';
       },
     }),
   ],
-  providers: [ConfigService, PinoLoggerService, RequestContextService],
+  providers: [
+    ConfigService,
+    PinoLoggerService,
+    RequestContextService,
+    ShutdownService,
+  ],
   exports: [ConfigService, PinoLoggerService, RequestContextService],
 })
 export class SharedModule implements NestModule {

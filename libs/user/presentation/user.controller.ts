@@ -7,7 +7,7 @@ import { User } from '@/libs/user/domain/models/user.model';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Get()
   async getUsers(): Promise<ResponseModel<UserDTO[]>> {

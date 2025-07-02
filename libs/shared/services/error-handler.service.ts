@@ -6,7 +6,10 @@ export class ErrorHandlerService {
     console.error('An error occurred:', error.message);
   }
 
-  handleHttpError(statusCode: number, message: string): { statusCode: number; message: string } {
+  handleHttpError(
+    statusCode: number,
+    message: string,
+  ): { statusCode: number; message: string } {
     return { statusCode, message };
   }
 }

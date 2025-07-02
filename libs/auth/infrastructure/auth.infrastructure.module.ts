@@ -9,4 +9,4 @@ import { ApiUtil } from '@/libs/shared/utils/api.util';
   providers: [GoogleOauthHttpContext, ApiUtil],
   exports: [GoogleOauthHttpContext],
 })
-export class GoogleApiModule {}
+export class AuthInfrastructureModule {}

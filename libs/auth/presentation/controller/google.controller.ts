@@ -10,16 +10,17 @@ import { GoogleLoginModel } from '@/libs/auth/domain/models/google-login.model';
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { Logger } from 'nestjs-pino';
+import { PinoLoggerService } from '@/libs/shared/logger/pino-logger.service';
 
-@Controller('auth')
-export class AuthController {
+@Controller('google')
+export class GoogleController {
   constructor(
     private readonly authService: AuthUserCase,
-    private readonly logger: Logger,
+    private readonly logger: PinoLoggerService,
     @InjectMapper() private readonly mapper: Mapper,
   ) {}
 
-  @Post('google/login')
+  @Post('login')
   async login(
     @Body() loginDto: GoogleLoginRequestDto,
   ): Promise<ResponseModel<GoogleLoginResponseDto>> {

@@ -1,14 +1,17 @@
 import { ConfigModule } from '@nestjs/config';
 import { UserInfrastructureModule } from '@/libs/user/infrastructure/user.infrastructure.module';
-import { GoogleApiModule } from '@/libs/auth/infrastructure/google-oauth.module';
-import { AuthApplicationModule } from '@/libs/auth/application/auth.application.module';
-import { AuthDomainModule } from '@/libs/auth/domain/auth.domain.module';
-import { AuthPresentationModule } from '@/libs/auth/presentation/auth.presentation.module';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 import { JwtModule } from '@nestjs/jwt';
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  forwardRef,
+} from '@nestjs/common';
 import { SharedModule } from '@/libs/shared/shared.module';
+import { RouterModule } from '@nestjs/core';
+import { AuthApiModule } from '@/apps/api/modules/auth-api.module';
 
 @Module({
   imports: [
@@ -24,11 +27,14 @@ import { SharedModule } from '@/libs/shared/shared.module';
       envFilePath: [`.env.${process.env.NODE_ENV}`, '.env'],
       ignoreEnvFile: false,
     }),
+    RouterModule.register([
+      {
+        path: 'auth',
+        module: AuthApiModule,
+      },
+    ]),
+    AuthApiModule,
     UserInfrastructureModule,
-    GoogleApiModule,
-    AuthApplicationModule,
-    AuthDomainModule,
-    AuthPresentationModule,
     SharedModule,
   ],
 })

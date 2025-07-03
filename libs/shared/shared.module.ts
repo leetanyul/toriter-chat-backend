@@ -25,6 +25,7 @@ import { ShutdownService } from '@/libs/shared/services/shutdown.service';
           return traceId;
         },
         redact: {
+          // 요청과 응답에서 민감한 정보 제거
           paths: [
             'req.query',
             'req.params',

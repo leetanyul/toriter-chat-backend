@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Get, Req, Query, Param } from '@nestjs/common';
-import { AuthUserCase } from '../../application/use-case/auth.use-case';
+import { GoogleAuthUserCase } from '../../application/use-case/google-auth.use-case';
 import {
   ResponseModel,
   ResponseCode,
@@ -11,7 +11,6 @@ import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { Logger } from 'nestjs-pino';
 import { PinoLoggerService } from '@/libs/shared/logger/pino-logger.service';
-import { RateLimit } from 'nestjs-rate-limiter';
 
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -27,15 +26,14 @@ export class TestParamDto {
 }
 
 @Controller('google')
-export class GoogleController {
+export class GoogleAuthController {
   constructor(
-    private readonly authService: AuthUserCase,
+    private readonly authService: GoogleAuthUserCase,
     private readonly logger: PinoLoggerService,
     @InjectMapper() private readonly mapper: Mapper,
   ) {}
 
   @Post('login')
-  @RateLimit({ points: 10, duration: 60 })
   async login(
     @Body() loginDto: GoogleLoginRequestDto,
   ): Promise<ResponseModel<GoogleLoginResponseDto>> {

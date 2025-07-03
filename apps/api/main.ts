@@ -10,25 +10,35 @@ import { Reflector } from '@nestjs/core';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import * as compression from 'compression';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { Express } from 'express';
+import { globalRateLimiter } from '@/libs/shared/middleware/rate-limit.middleware';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+  const isProduction = process.env.ENV === 'PRODUCTION';
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bufferLogs: true,
   });
-  const isProduction = process.env.ENV === 'PRODUCTION';
-
+  app.set('trust proxy', true);
   app.useLogger(app.get(Logger));
+
+  // 전역 예외 필터 설정
   app.useGlobalFilters(new GlobalHttpExceptionFilter());
+
+  // 직렬화 인터셉터 설정
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
+  // 유효성 검사 파이프 설정
+  // DTO에 정의된 유효성 검사 규칙을 적용
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // DTO에 명시된 속성만 허용
       forbidNonWhitelisted: true, // DTO 외의 속성은 400 에러
-      transform: true, // ayload를 DTO 클래스로 변환
+      transform: true, // payload를 DTO 클래스로 변환
     }),
   );
-
+  app.use(globalRateLimiter);
+  // 보안 헤더 설정
   app.use(
     helmet({
       contentSecurityPolicy: isProduction ? undefined : false,
@@ -36,9 +46,10 @@ async function bootstrap() {
       crossOriginResourcePolicy: isProduction ? undefined : false,
     }),
   );
+  // 압축 미들웨어 설정
   app.use(
     compression({
-      threshold: 2048, // 1KB 이상일 때만 압축
+      threshold: 2048, // response가 1KB 이상일 때만 압축
     }),
   );
 
@@ -56,9 +67,16 @@ async function bootstrap() {
     `🚀 Server running (${process.env.ENV}) on http://localhost:${port}`,
   );
 
-  // 라우트 목록 출력
   const server = app.getHttpServer();
-  const router = server._events.request._router;
+  const expressApp = server as unknown as Express;
+
+  // 라우트 목록 출력
+  const router = expressApp._router;
+  if (!router || !router.stack) {
+    console.warn('Express router stack not found.');
+    return;
+  }
+
   const routes = router.stack
     .filter((layer) => layer.route)
     .map((layer) => {

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AuthUserCase } from './use-case/auth.use-case';
+import { GoogleAuthUserCase } from './use-case/google-auth.use-case';
 import { UserInfrastructureModule } from '@/libs/user/infrastructure/user.infrastructure.module';
 import { AuthInfrastructureModule } from '@/libs/auth/infrastructure/auth.infrastructure.module';
 import { ConfigService } from '@/libs/shared/services/config.service';
@@ -12,13 +12,13 @@ import { SharedModule } from '@/libs/shared/shared.module';
 @Module({
   imports: [UserInfrastructureModule, AuthInfrastructureModule, SharedModule],
   providers: [
-    AuthUserCase,
+    GoogleAuthUserCase,
     ConfigService,
     ErrorHandlerService,
     AuthService,
     JwtUsecase,
     JwtService,
   ],
-  exports: [AuthUserCase, JwtUsecase],
+  exports: [GoogleAuthUserCase, JwtUsecase],
 })
 export class AuthApplicationModule {}

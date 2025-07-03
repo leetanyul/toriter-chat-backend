@@ -6,7 +6,7 @@ import { GoogleUserInfoResponseModel } from '../../domain/models/google-user-inf
 import { AuthService } from '../../domain/services/auth.service';
 
 @Injectable()
-export class AuthUserCase {
+export class GoogleAuthUserCase {
   constructor(
     private readonly userRepository: UserRepositoryImpl,
     private readonly googleOauthHttpContext: GoogleOauthHttpContext,

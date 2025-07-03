@@ -6,9 +6,9 @@ import {
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { PinoLoggerService } from '@/libs/shared/logger/pino-logger.service';
-import { RateLimit } from 'nestjs-rate-limiter';
 import { TestParamDto } from '@/libs/sample/model';
 import { TestModel } from '@/libs/sample/model';
+import { Request } from 'express';
 
 @Controller('test')
 export class TestController {
@@ -21,14 +21,15 @@ export class TestController {
   async test3(
     @Param() params: TestParamDto,
   ): Promise<ResponseModel<TestModel>> {
+    // 매핑 작업
     const mapped = this.mapper.map(params, TestParamDto, TestModel);
     this.logger.log(`[test3] mapped: ${JSON.stringify(mapped)}`);
     return ResponseModel.ok(mapped);
   }
-
+  // 10초동안 3번 호출 가능 주기도 10초
   @Get('test1')
   async test(@Req() req: Request): Promise<ResponseModel<string>> {
-    this.logger.log('health check called');
+    this.logger.log(`IP: ${req.ip}, IPS: ${req.ips}`);
     return ResponseModel.ok('test1');
   }
 

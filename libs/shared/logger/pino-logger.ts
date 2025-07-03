@@ -14,7 +14,7 @@ const generator = (time: Date, index: number) => {
 };
 
 export const rotatingStream = rfs.createStream(generator, {
-  size: '20K', // 100MB 넘으면 새 파일 생성
+  size: '100M', // 100MB 넘으면 새 파일 생성
   interval: '1d', // 하루 단위로도 강제 회전
   path: logDir,
   // plain 으로 남기고 로그 정리하거나 옮기는 서비스나 설정에서 압축하는 방향으로 진행

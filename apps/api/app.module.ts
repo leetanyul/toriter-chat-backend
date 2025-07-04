@@ -3,16 +3,10 @@ import { UserInfrastructureModule } from '@/libs/user/infrastructure/user.infras
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 import { JwtModule } from '@nestjs/jwt';
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  forwardRef,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { SharedModule } from '@/libs/shared/shared.module';
 import { RouterModule } from '@nestjs/core';
-import { AuthApiModule } from '@/apps/api/modules/auth-api.module';
-import { SampleApiModule } from '@/apps/api/modules/sample-api.module';
+import { AppRoutes, ApiModules } from '@/apps/api/routes.config';
 
 @Module({
   imports: [
@@ -28,18 +22,8 @@ import { SampleApiModule } from '@/apps/api/modules/sample-api.module';
       envFilePath: [`.env.${process.env.NODE_ENV}`, '.env'],
       ignoreEnvFile: false,
     }),
-    RouterModule.register([
-      {
-        path: 'auth',
-        module: AuthApiModule,
-      },
-      {
-        path: 'sample',
-        module: SampleApiModule,
-      },
-    ]),
-    SampleApiModule,
-    AuthApiModule,
+    RouterModule.register(AppRoutes),
+    ...ApiModules,
     UserInfrastructureModule,
     SharedModule,
   ],

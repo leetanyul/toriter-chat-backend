@@ -17,8 +17,8 @@ export class SampleApiModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     const test1Limiter = createRateLimiter({
       windowMs: 10 * 1000,
-      max: 1,
-      message: 'Too many test1 requests.',
+      max: 3,
+      message: 'test1',
       keyPrefix: 'test1_',
     });
 

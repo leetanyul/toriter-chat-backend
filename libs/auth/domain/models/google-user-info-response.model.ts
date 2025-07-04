@@ -3,13 +3,13 @@ import { AutoMap } from '@automapper/classes';
 
 export class GoogleUserInfoResponseModel {
   constructor(
-    public readonly sub: string,
-    public readonly name: string,
-    public readonly givenName: string,
-    public readonly familyName: string,
-    public readonly picture: string,
-    public readonly email: string,
-    public readonly emailVerified: boolean,
+    public sub: string,
+    public name: string,
+    public givenName: string,
+    public familyName: string,
+    public picture: string,
+    public email: string,
+    public emailVerified: boolean,
   ) {}
 
   static fromDto(

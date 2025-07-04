@@ -66,26 +66,6 @@ async function bootstrap() {
   console.log(
     `🚀 Server running (${process.env.ENV}) on http://localhost:${port}`,
   );
-
-  const server = app.getHttpServer();
-  const expressApp = server as unknown as Express;
-
-  // 라우트 목록 출력
-  const router = expressApp._router;
-  if (!router || !router.stack) {
-    console.warn('Express router stack not found.');
-    return;
-  }
-
-  const routes = router.stack
-    .filter((layer) => layer.route)
-    .map((layer) => {
-      const route = layer.route;
-      const method = Object.keys(route.methods)[0].toUpperCase();
-      return { method, path: route.path };
-    });
-
-  console.table(routes);
 }
 
 bootstrap();

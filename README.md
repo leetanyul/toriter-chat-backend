@@ -1,99 +1,62 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 프로젝트 개요
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+이 프로젝트는 NestJS를 기반으로 한 TypeScript 서버 애플리케이션으로, 효율적이고 확장 가능한 백엔드 시스템을 구축하기 위해 설계되었습니다.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 프로젝트 구성
 
-## Description
+해당 프로젝트는 연습용으로 **Monorepo**로 구성되어 있습니다. 주요 구성 요소는 다음과 같습니다:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **API 서버**: 현재 API의 구조만 대략적으로 잡혀있는 상태입니다.
+- **소켓 통신 서버**: 실시간 데이터 전송을 위한 소켓 기반 서버.(미구성)
+- **알림 서버**: 사용자 알림을 처리하는 서버.(미구성)
+- **백그라운드 워커**: 비동기 작업을 처리하는 워커.(미구성)
 
-## Project setup
+이 프로젝트는 다양한 서버 구성 요소를 통합하여 효율적인 백엔드 시스템을 연습하고 설계하는 데 초점을 맞추고 있습니다.
 
-```bash
-$ npm install
-```
+## 사용 기술
 
-## Compile and run the project
+### 프레임워크 및 언어
 
-```bash
-# development
-$ npm run start
+- **NestJS**: Node.js 기반의 서버 애플리케이션 프레임워크
+- **TypeScript**: 정적 타입을 지원하는 JavaScript의 상위 언어
 
-# watch mode
-$ npm run start:dev
+### 인증 및 보안
 
-# production mode
-$ npm run start:prod
-```
+- **JWT**: 사용자 인증 및 권한 부여를 위한 JSON Web Token
+- **Helmet**: 보안 헤더 설정을 통한 애플리케이션 보호
+- **Rate Limiter**: `express-rate-limit`을 사용한 API 요청 제한
 
-## Run tests
+### 데이터 관리
 
-```bash
-# unit tests
-$ npm run test
+- **Prisma**: 데이터베이스 ORM 및 스키마 관리
 
-# e2e tests
-$ npm run test:e2e
+### 로깅 및 모니터링
 
-# test coverage
-$ npm run test:cov
-```
+- **Pino Logger**: 고성능 로깅 시스템
+- **Rotating File Stream**: 로그 파일 회전 및 관리
 
-## Deployment
+### 유틸리티 및 기타
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+- **Automapper**: 객체 간 매핑을 위한 라이브러리
+- **Compression**: 응답 압축을 통한 성능 최적화
+- **Validation Pipe**: DTO 기반의 유효성 검사
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## 주요 기능
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+### 인증 및 사용자 관리
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+- Google OAuth를 통한 사용자 인증
+- JWT 기반의 사용자 세션 관리
 
-## Resources
+### API 요청 제한
 
-Check out a few resources that may come in handy when working with NestJS:
+- IP 및 사용자 기반 Rate Limiter 적용
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### 로깅 및 추적
 
-## Support
+- Trace ID를 활용한 요청 추적
+- 민감 정보 제거를 포함한 로깅 정책
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 데이터베이스 관리
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- Prisma를 사용한 데이터 모델링 및 쿼리

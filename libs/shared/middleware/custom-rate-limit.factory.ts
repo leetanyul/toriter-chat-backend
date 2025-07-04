@@ -23,18 +23,18 @@ export function createRateLimiter({
     windowMs,
     max,
 
+    // TODO: 토큰값기준으로 변경할것, 토큰값없으면 패스
     // 클라이언트 식별 키 생성 방식 (기본: IP)
     keyGenerator: (req: Request) => {
-      const ip = req.ip || '';
-      return `${keyPrefix}${ip}`; // prefix 붙여서 목적별 제한 분리 가능
+      const forwarded = req.headers['x-forwarded-for'] as string;
+      const ip = forwarded ? forwarded.split(',')[0].trim() : req.ip || '';
+      return `${keyPrefix}${ip}`;
     },
 
     // 요청 횟수 초과 시 응답 핸들러
     handler: (req, res) => {
       const seconds = Math.floor(windowMs / 1000); // 밀리초 → 초 변환
-      const finalMessage =
-        message ??
-        `Too many requests globally. Please try again after ${seconds} seconds.`;
+      const finalMessage = `Too many ${message} requests. ${seconds} seconds.`;
 
       const response = ResponseModel.fail(finalMessage); // 공용 응답 포맷
       res.status(429).json(response); // 429 Too Many Requests

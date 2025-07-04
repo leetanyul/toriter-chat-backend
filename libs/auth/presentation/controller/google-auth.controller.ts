@@ -55,10 +55,4 @@ export class GoogleAuthController {
     this.logger.log('health check called');
     return ResponseModel.ok('health');
   }
-
-  @Get('test/:message/:d')
-  async test2(@Param() params: TestParamDto): Promise<ResponseModel<string>> {
-    this.logger.log('health check called');
-    return ResponseModel.ok('health');
-  }
 }

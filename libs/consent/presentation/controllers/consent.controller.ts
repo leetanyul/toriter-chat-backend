@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, Query } from '@nestjs/common';
-import { GetLatestPoliciesUseCase } from '@libs/consent/application/interface/get-latest-policies.use-case';
+import { PoliciesUseCase as PoliciesUseCase } from '@/libs/consent/application/contracts/policies.use-case';
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 
@@ -7,26 +7,26 @@ import { GetLatestPoliciesRequestDto } from '../dtos/get-latest-policies.request
 import { LatestPolicyResponseDto } from '../dtos/get-latest-policies.response.dto';
 import { GetLatestPoliciesInput } from '@libs/consent/application/dtos/get-latest-policies.input';
 import { LatestPolicyOutput } from '@libs/consent/application/dtos/get-latest-policies.output';
+import { ResponseModel } from '@/libs/shared/models/response.model';
 
 @Controller('policy')
 export class PolicyController {
   constructor(
-    @Inject('GetLatestPoliciesUseCase')
-    private readonly getLatestPoliciesUseCase: GetLatestPoliciesUseCase,
+    private readonly policiesUseCase: PoliciesUseCase,
     @InjectMapper() private readonly mapper: Mapper,
   ) {}
 
   @Get('latest')
   async getLatestPolicies(
     @Query() query: GetLatestPoliciesRequestDto,
-  ): Promise<LatestPolicyResponseDto[]> {
+  ): Promise<ResponseModel<LatestPolicyResponseDto[]>> {
     const input = this.mapper.map(
       query,
       GetLatestPoliciesRequestDto,
       GetLatestPoliciesInput,
     );
 
-    const result = await this.getLatestPoliciesUseCase.execute(input);
+    const result = await this.policiesUseCase.getLastPolicies(input);
 
     const responseDto = this.mapper.mapArray(
       result,
@@ -34,6 +34,6 @@ export class PolicyController {
       LatestPolicyResponseDto,
     );
 
-    return responseDto;
+    return ResponseModel.ok(responseDto);
   }
 }

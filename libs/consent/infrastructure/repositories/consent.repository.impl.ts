@@ -1,17 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { ConsentRepository } from '@libs/consent/infrastructure/repositories/interface/consent.repository';
-import { LatestPolicyOutput } from '@libs/consent/application/dtos/get-latest-policies.output';
+import { ConsentRepository } from '@/libs/consent/infrastructure/contracts/consent.repository';
+import { InfraLatestPolicyEntityDto } from '@/libs/consent/infrastructure/dtos/infra-latest-policy.entity.dto';
 import { ShardConnectionManager } from '@libs/shared/database/shard-connection-manager';
+import { InfraLatestPolicyQueryDto } from '@/libs/consent/infrastructure/dtos/infra-latest-policy.query.dto';
 
 @Injectable()
 export class ConsentRepositoryImpl implements ConsentRepository {
   constructor(private readonly shardManager: ShardConnectionManager) {}
 
-  async findLatestPoliciesByUserId(
-    userId: string,
-  ): Promise<LatestPolicyOutput[]> {
-    const ds = await this.shardManager.getDataSource('core'); // ✅ 핵심: core DB
-    const query = `
+  async findLatestPoliciesByQuery(
+    query: InfraLatestPolicyQueryDto,
+  ): Promise<InfraLatestPolicyEntityDto[]> {
+    const ds = await this.shardManager.getDataSource('core');
+
+    const queryScript = `
 SELECT
   cp.id AS policyId,
   cp.type,
@@ -38,6 +40,6 @@ LEFT JOIN user_consent uc
   ON uc.user_id = u.id AND uc.policy_id = cp.id
 `;
 
-    return ds.query(query, [userId]);
+    return ds.query(queryScript, [query.userId]);
   }
 }

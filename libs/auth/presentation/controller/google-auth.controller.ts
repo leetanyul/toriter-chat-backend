@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Get, Req } from '@nestjs/common';
-import { GoogleAuthUserCase } from '../../application/use-case/google-auth.use-case';
+import { GoogleAuthUserCase } from '@/libs/auth/application/contracts/google-auth.use-case';
 import { ResponseModel } from '@/libs/shared/models/response.model';
 import { GoogleLoginRequestDto } from '../dtos/google-login.request.dto';
 import { GoogleLoginResponseDto } from '@/libs/auth/presentation/dtos/google-login.response.dto';

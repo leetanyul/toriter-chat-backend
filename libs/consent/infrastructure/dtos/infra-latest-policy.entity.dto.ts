@@ -1,6 +1,6 @@
 import { AutoMap } from '@automapper/classes';
 
-export class LatestPolicyOutput {
+export class InfraLatestPolicyEntityDto {
   @AutoMap()
   policyId: number;
 
@@ -11,10 +11,10 @@ export class LatestPolicyOutput {
   version: number;
 
   @AutoMap()
-  isRequired: boolean;
+  isRequired: number; // 0 | 1
 
   @AutoMap()
-  agreed: boolean;
+  agreed: number | null; // 0 | 1 | null
 
   @AutoMap()
   title: string;

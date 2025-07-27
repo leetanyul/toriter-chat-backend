@@ -1,7 +1,6 @@
-import { createMap } from '@automapper/core';
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import { Injectable } from '@nestjs/common';
-import { Mapper } from '@automapper/core';
+import { Mapper, createMap } from '@automapper/core';
 import { LatestPolicyOutput } from '@libs/consent/application/dtos/get-latest-policies.output';
 import { LatestPolicyResponseDto } from '@libs/consent/presentation/dtos/get-latest-policies.response.dto';
 import { GetLatestPoliciesInput } from '@libs/consent/application/dtos/get-latest-policies.input';

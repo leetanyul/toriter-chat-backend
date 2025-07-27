@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ShardConnectionManager } from './shard-connection-manager';
+import { ShardConnectionManager } from '@libs/shared/database/shard-connection-manager';
 
 @Module({
   providers: [ShardConnectionManager],

@@ -5,7 +5,7 @@ import axios, { AxiosError } from 'axios';
 import {
   ResponseModel,
   ResponseCode,
-} from '@/libs/shared/models/response.model';
+} from '@libs/shared/models/response.model';
 
 @Injectable()
 export class ApiUtil {

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from '@/libs/user/user..module';
-import { SharedModule } from '@/libs/shared/shared.module';
+import { UserModule } from '@libs/user/user..module';
+import { SharedModule } from '@libs/shared/shared.module';
 /**
  * 애플리케이션(앱) 영역에서 사용할 Auth 전용 모듈.
  * 라우터(prefix) 에 연결할 ‘대표 모듈’ 역할만 합니다.

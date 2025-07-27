@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { RequestContextService } from './request-context.service';
+import { RequestContextService } from '@libs/shared/context/request-context.service';
 
 @Injectable()
 export class TraceIdMiddleware implements NestMiddleware {

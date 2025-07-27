@@ -5,7 +5,7 @@ dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/apps/api/app.module';
-import { GlobalHttpExceptionFilter } from '@/libs/shared/filters/http-exception.filter';
+import { GlobalHttpExceptionFilter } from '@libs/shared/filters/http-exception.filter';
 import { Logger } from 'nestjs-pino';
 import { Reflector } from '@nestjs/core';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
@@ -13,7 +13,7 @@ import helmet from 'helmet';
 import * as compression from 'compression';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Express } from 'express';
-import { globalRateLimiter } from '@/libs/shared/middleware/rate-limit.middleware';
+import { globalRateLimiter } from '@libs/shared/middleware/rate-limit.middleware';
 
 async function bootstrap() {
   const isProduction = process.env.ENV === 'PRODUCTION';

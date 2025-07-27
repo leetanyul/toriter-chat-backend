@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, Query } from '@nestjs/common';
-import { PoliciesUseCase as PoliciesUseCase } from '@/libs/consent/application/contracts/policies.use-case';
+import { PoliciesUseCase as PoliciesUseCase } from '@libs/consent/application/contracts/policies.use-case';
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 
@@ -7,7 +7,7 @@ import { GetLatestPoliciesRequestDto } from '../dtos/get-latest-policies.request
 import { LatestPolicyResponseDto } from '../dtos/get-latest-policies.response.dto';
 import { GetLatestPoliciesInput } from '@libs/consent/application/dtos/get-latest-policies.input';
 import { LatestPolicyOutput } from '@libs/consent/application/dtos/get-latest-policies.output';
-import { ResponseModel } from '@/libs/shared/models/response.model';
+import { ResponseModel } from '@libs/shared/models/response.model';
 
 @Controller('policy')
 export class PolicyController {

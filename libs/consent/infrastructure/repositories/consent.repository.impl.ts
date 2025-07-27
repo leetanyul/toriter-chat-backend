@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ConsentRepository } from '@/libs/consent/infrastructure/contracts/consent.repository';
-import { InfraLatestPolicyEntityDto } from '@/libs/consent/infrastructure/dtos/infra-latest-policy.entity.dto';
+import { ConsentRepository } from '@libs/consent/infrastructure/contracts/consent.repository';
+import { InfraLatestPolicyEntityDto } from '@libs/consent/infrastructure/dtos/infra-latest-policy.entity.dto';
 import { ShardConnectionManager } from '@libs/shared/database/shard-connection-manager';
-import { InfraLatestPolicyQueryDto } from '@/libs/consent/infrastructure/dtos/infra-latest-policy.query.dto';
+import { InfraLatestPolicyQueryDto } from '@libs/consent/infrastructure/dtos/infra-latest-policy.query.dto';
 
 @Injectable()
 export class ConsentRepositoryImpl implements ConsentRepository {

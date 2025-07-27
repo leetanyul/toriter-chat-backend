@@ -1,14 +1,14 @@
 import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
-import { ConfigService } from '@/libs/shared/services/config.service';
+import { ConfigService } from '@libs/shared/services/config.service';
 import { LoggerModule } from 'nestjs-pino';
 import { v4 as uuid } from 'uuid';
-import { rotatingStream } from '@/libs/shared/logger/pino-logger';
-import { PinoLoggerService } from '@/libs/shared/logger/pino-logger.service';
+import { rotatingStream } from '@libs/shared/logger/pino-logger';
+import { PinoLoggerService } from '@libs/shared/logger/pino-logger.service';
 import { multistream, stdTimeFunctions } from 'pino';
-import { RequestContextService } from '@/libs/shared/context/request-context.service';
-import { TraceIdMiddleware } from '@/libs/shared/context/trace-id.middleware';
-import { ShutdownService } from '@/libs/shared/services/shutdown.service';
-import { SharedDatabaseModule } from '@/libs/shared/database/shared-database.module';
+import { RequestContextService } from '@libs/shared/context/request-context.service';
+import { TraceIdMiddleware } from '@libs/shared/context/trace-id.middleware';
+import { ShutdownService } from '@libs/shared/services/shutdown.service';
+import { SharedDatabaseModule } from '@libs/shared/database/shared-database.module';
 
 @Module({
   imports: [

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ApiUtil } from '@/libs/shared/utils/api.util';
-import { InfraGoogleLoginRequestDto } from '@/libs/auth/infrastructure/dtos/infra-google-login.request.dto';
-import { InfraGoogleLoginResponseDto } from '@/libs/auth/infrastructure/dtos/infra-google-login.response.dto';
-import { GoogleOauthService } from '@/libs/auth/infrastructure/contracts/google-oauth.service';
+import { ApiUtil } from '@libs/shared/utils/api.util';
+import { InfraGoogleLoginRequestDto } from '@libs/auth/infrastructure/dtos/infra-google-login.request.dto';
+import { InfraGoogleLoginResponseDto } from '@libs/auth/infrastructure/dtos/infra-google-login.response.dto';
+import { GoogleOauthService } from '@libs/auth/infrastructure/contracts/google-oauth.service';
 
 @Injectable()
 export class GoogleOauthHttpContext implements GoogleOauthService {

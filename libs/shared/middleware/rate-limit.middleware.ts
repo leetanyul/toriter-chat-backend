@@ -1,5 +1,5 @@
 import rateLimit from 'express-rate-limit';
-import { ResponseModel } from '@/libs/shared/models/response.model';
+import { ResponseModel } from '@libs/shared/models/response.model';
 import { Request } from 'express';
 
 /**

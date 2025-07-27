@@ -1,6 +1,6 @@
 import rateLimit from 'express-rate-limit';
 import { Request } from 'express';
-import { ResponseModel } from '@/libs/shared/models/response.model';
+import { ResponseModel } from '@libs/shared/models/response.model';
 
 /**
  * 공용 커스텀 RateLimiter 생성 팩토리

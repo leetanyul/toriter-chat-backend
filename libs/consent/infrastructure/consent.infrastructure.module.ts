@@ -1,6 +1,6 @@
 // libs/consent/infrastructure/consent-infrastructure.module.ts
 import { Module } from '@nestjs/common';
-import { ConsentRepository } from '@/libs/consent/infrastructure/contracts/consent.repository';
+import { ConsentRepository } from '@libs/consent/infrastructure/contracts/consent.repository';
 import { ConsentRepositoryImpl } from '@libs/consent/infrastructure/repositories/consent.repository.impl';
 import { SharedDatabaseModule } from '@libs/shared/database/shared-database.module';
 

@@ -1,18 +1,18 @@
 import { Controller, Post, Body, Get, Req } from '@nestjs/common';
-import { GoogleAuthUserCase } from '@/libs/auth/application/contracts/google-auth.use-case';
-import { ResponseModel } from '@/libs/shared/models/response.model';
+import { GoogleAuthUseCase } from '@libs/auth/application/contracts/google-auth.use-case';
+import { ResponseModel } from '@libs/shared/models/response.model';
 import { GoogleLoginRequestDto } from '../dtos/google-login.request.dto';
-import { GoogleLoginResponseDto } from '@/libs/auth/presentation/dtos/google-login.response.dto';
-import { GoogleLoginInput } from '@/libs/auth/application/dtos/google-login.input';
+import { GoogleLoginResponseDto } from '@libs/auth/presentation/dtos/google-login.response.dto';
+import { GoogleLoginInput } from '@libs/auth/application/dtos/google-login.input';
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
-import { PinoLoggerService } from '@/libs/shared/logger/pino-logger.service';
+import { PinoLoggerService } from '@libs/shared/logger/pino-logger.service';
 import { GoogleLoginOutput } from '@libs/auth/application/dtos/google-login.output';
 
 @Controller('google')
 export class GoogleAuthController {
   constructor(
-    private readonly authService: GoogleAuthUserCase,
+    private readonly authService: GoogleAuthUseCase,
     private readonly logger: PinoLoggerService,
     @InjectMapper() private readonly mapper: Mapper,
   ) {}

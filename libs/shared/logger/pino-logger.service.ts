@@ -1,6 +1,6 @@
 import { Injectable, LoggerService } from '@nestjs/common';
-import { logger } from './pino-logger';
-import { RequestContextService } from '@/libs/shared/context/request-context.service';
+import { logger } from '@libs/shared/logger/pino-logger';
+import { RequestContextService } from '@libs/shared/context/request-context.service';
 
 @Injectable()
 export class PinoLoggerService implements LoggerService {

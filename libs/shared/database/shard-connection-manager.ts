@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
-import { ShardDbConfig } from './shard-db-config.interface';
+import { ShardDbConfig } from '@libs/shared/database/shard-db-config.interface';
 import * as url from 'url';
 
 @Injectable()

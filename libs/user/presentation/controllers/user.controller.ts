@@ -2,7 +2,7 @@ import { Controller, Get, Param, Put, Body } from '@nestjs/common';
 import {
   ResponseModel,
   ResponseCode,
-} from '@/libs/shared/models/response.model';
+} from '@libs/shared/models/response.model';
 
 @Controller('user')
 export class UserController {

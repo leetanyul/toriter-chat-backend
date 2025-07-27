@@ -1,10 +1,10 @@
 import { ConfigModule } from '@nestjs/config';
-import { UserInfrastructureModule } from '@/libs/user/infrastructure/user.infrastructure.module';
+import { UserInfrastructureModule } from '@libs/user/infrastructure/user.infrastructure.module';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 import { JwtModule } from '@nestjs/jwt';
 import { Module } from '@nestjs/common';
-import { SharedModule } from '@/libs/shared/shared.module';
+import { SharedModule } from '@libs/shared/shared.module';
 import { RouterModule } from '@nestjs/core';
 import { AppRoutes, ApiModules } from '@/apps/api/routes.config';
 

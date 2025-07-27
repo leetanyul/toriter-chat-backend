@@ -4,10 +4,10 @@ import {
   MiddlewareConsumer,
   RequestMethod,
 } from '@nestjs/common';
-import { SampleModule } from '@/libs/sample/sample.module';
-import { TestController } from '@/libs/sample/test.controller';
-import { SharedModule } from '@/libs/shared/shared.module';
-import { createRateLimiter } from '@/libs/shared/middleware/custom-rate-limit.factory';
+import { SampleModule } from '@libs/sample/sample.module';
+import { TestController } from '@libs/sample/test.controller';
+import { SharedModule } from '@libs/shared/shared.module';
+import { createRateLimiter } from '@libs/shared/middleware/custom-rate-limit.factory';
 
 /**
  * 애플리케이션(앱) 영역에서 사용할 Sample 전용 모듈.

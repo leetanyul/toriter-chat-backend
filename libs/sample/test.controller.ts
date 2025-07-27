@@ -2,12 +2,12 @@ import { Controller, Post, Body, Get, Req, Query, Param } from '@nestjs/common';
 import {
   ResponseModel,
   ResponseCode,
-} from '@/libs/shared/models/response.model';
+} from '@libs/shared/models/response.model';
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
-import { PinoLoggerService } from '@/libs/shared/logger/pino-logger.service';
-import { TestParamDto } from '@/libs/sample/model';
-import { TestModel } from '@/libs/sample/model';
+import { PinoLoggerService } from '@libs/shared/logger/pino-logger.service';
+import { TestParamDto } from '@libs/sample/model';
+import { TestModel } from '@libs/sample/model';
 import { Request } from 'express';
 
 @Controller('test')

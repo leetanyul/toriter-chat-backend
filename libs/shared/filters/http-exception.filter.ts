@@ -9,7 +9,7 @@ import { Response } from 'express';
 import {
   ResponseModel,
   ResponseCode,
-} from '@/libs/shared/models/response.model';
+} from '@libs/shared/models/response.model';
 @Catch()
 export class GlobalHttpExceptionFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost) {

@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "dev:api": "npm run build && node dist/apps/api/main.js",
+    "dev:api": "npm run build && cross-env NODE_ENV=development node dist/apps/api/main.js",
     "build:api": "tsc -p apps/api/tsconfig.json",
     "local": "npm run build && cross-env NODE_ENV=local node --inspect-brk dist/apps/api/main.js",
     "development": "npm run build && cross-env NODE_ENV=development node dist/apps/api/main.js",
@@ -33,6 +33,7 @@
     "express-rate-limit": "^7.5.1",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.2",
     "nestjs-pino": "^4.4.0",
     "pino": "^9.7.0",
     "pino-http": "^10.5.0",
@@ -40,6 +41,7 @@
     "reflect-metadata": "^0.1.13",
     "rotating-file-stream": "^3.2.6",
     "rxjs": "^7.8.1",
+    "typeorm": "^0.3.25",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

@@ -1,27 +1,45 @@
 import { Injectable } from '@nestjs/common';
 import { ApiUtil } from '@/libs/shared/utils/api.util';
-import { InfraGoogleLoginDto } from '@/libs/auth/infrastructure/dtos/infra-google-login.dto';
-import { InfraGoogleValidateResponseDto } from '@/libs/auth/infrastructure/dtos/infra-google-validate-response.dto';
-import { GoogleLoginModel } from '@/libs/auth/domain/models/google-login.model';
-import { GoogleUserInfoResponseModel } from '@/libs/auth/domain/models/google-user-info-response.model';
+import { InfraGoogleLoginRequestDto } from '@/libs/auth/infrastructure/dtos/infra-google-login.request.dto';
+import { InfraGoogleLoginResponseDto } from '@/libs/auth/infrastructure/dtos/infra-google-login.response.dto';
+import { GoogleLoginInput } from '@/libs/auth/application/dtos/google-login.input';
+import { GoogleLoginOutput } from '@/libs/auth/application/dtos/google-login.output';
+import { Mapper } from '@automapper/core';
+import { InjectMapper } from '@automapper/nestjs';
 
 @Injectable()
 export class GoogleOauthHttpContext {
-  constructor(private readonly apiUtil: ApiUtil) {}
+  constructor(
+    private readonly apiUtil: ApiUtil,
+    @InjectMapper() private readonly mapper: Mapper,
+  ) {}
 
   async validateAccessToken(
-    loginModel: GoogleLoginModel,
-  ): Promise<GoogleUserInfoResponseModel> {
-    const infraGoogleLoginDto = InfraGoogleLoginDto.fromLoginModel(loginModel);
+    loginModel: GoogleLoginInput,
+  ): Promise<GoogleLoginOutput> {
+    // ✅ 매퍼로 변환
+    const infraGoogleLoginDto = this.mapper.map(
+      loginModel,
+      GoogleLoginInput,
+      InfraGoogleLoginRequestDto,
+    );
+
     const url = 'https://www.googleapis.com/oauth2/v3/userinfo';
     const headers = this.apiUtil.getBearerTokenHeader(
       infraGoogleLoginDto.accessToken,
     );
-    const response = await this.apiUtil.get<InfraGoogleValidateResponseDto>(
+
+    const response = await this.apiUtil.get<InfraGoogleLoginResponseDto>(
       url,
       {},
       headers,
     );
-    return GoogleUserInfoResponseModel.fromDto(response);
+
+    // ✅ 매퍼로 변환
+    return this.mapper.map(
+      response,
+      InfraGoogleLoginResponseDto,
+      GoogleLoginOutput,
+    );
   }
 }

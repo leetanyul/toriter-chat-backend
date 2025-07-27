@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { GoogleLoginModel } from '@/libs/auth/domain/models/google-login.model';
+import { GoogleLoginInput } from '@/libs/auth/application/dtos/google-login.input';
 import { GoogleOauthHttpContext } from '@/libs/auth/infrastructure/http-context/google-oauth.http-context';
-import { GoogleUserInfoResponseModel } from '../../domain/models/google-user-info-response.model';
+import { GoogleLoginOutput } from '../dtos/google-login.output';
 import { AuthService } from '../../domain/services/auth.service';
 
 @Injectable()
@@ -10,9 +10,7 @@ export class GoogleAuthUserCase {
     private readonly googleOauthHttpContext: GoogleOauthHttpContext,
   ) {}
 
-  async login(
-    loginModel: GoogleLoginModel,
-  ): Promise<GoogleUserInfoResponseModel> {
+  async login(loginModel: GoogleLoginInput): Promise<GoogleLoginOutput> {
     const googleUser =
       await this.googleOauthHttpContext.validateAccessToken(loginModel);
 

@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { GoogleUserInfoResponseModel } from '@/libs/auth/domain/models/google-user-info-response.model';
+import { GoogleLoginOutput } from '@/libs/auth/application/dtos/google-login.output';
 
 export class GoogleLoginResponseDto {
   @Expose()
@@ -41,9 +41,7 @@ export class GoogleLoginResponseDto {
     this.emailVerified = emailVerified;
   }
 
-  static fromLoginModel(
-    model: GoogleUserInfoResponseModel,
-  ): GoogleLoginResponseDto {
+  static fromLoginModel(model: GoogleLoginOutput): GoogleLoginResponseDto {
     return new GoogleLoginResponseDto(
       model.sub,
       model.name,

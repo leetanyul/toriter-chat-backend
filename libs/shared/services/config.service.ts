@@ -6,6 +6,7 @@ export class ConfigService {
   private readonly envConfig: { [key: string]: string };
 
   constructor() {
+    console.log(process.env.NODE_ENV);
     dotenv.config();
     this.envConfig = process.env;
   }

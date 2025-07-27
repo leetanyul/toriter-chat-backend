@@ -8,6 +8,7 @@ import { multistream, stdTimeFunctions } from 'pino';
 import { RequestContextService } from '@/libs/shared/context/request-context.service';
 import { TraceIdMiddleware } from '@/libs/shared/context/trace-id.middleware';
 import { ShutdownService } from '@/libs/shared/services/shutdown.service';
+import { SharedDatabaseModule } from '@/libs/shared/database/shared-database.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { ShutdownService } from '@/libs/shared/services/shutdown.service';
         customErrorMessage: () => '0',
       },
     }),
+    SharedDatabaseModule,
   ],
   providers: [
     ConfigService,
@@ -47,7 +49,12 @@ import { ShutdownService } from '@/libs/shared/services/shutdown.service';
     RequestContextService,
     ShutdownService,
   ],
-  exports: [ConfigService, PinoLoggerService, RequestContextService],
+  exports: [
+    ConfigService,
+    PinoLoggerService,
+    RequestContextService,
+    SharedDatabaseModule,
+  ],
 })
 export class SharedModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

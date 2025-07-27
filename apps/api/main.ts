@@ -1,5 +1,6 @@
 // apps/api/main.ts
 import * as dotenv from 'dotenv';
+dotenv.config(); // .env 먼저 불러와서 NODE_ENV를 확보
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 import { NestFactory } from '@nestjs/core';

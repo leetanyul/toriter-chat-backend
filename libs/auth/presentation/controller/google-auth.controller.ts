@@ -1,29 +1,13 @@
-import { Controller, Post, Body, Get, Req, Query, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Req } from '@nestjs/common';
 import { GoogleAuthUserCase } from '../../application/use-case/google-auth.use-case';
-import {
-  ResponseModel,
-  ResponseCode,
-} from '@/libs/shared/models/response.model';
-import { GoogleLoginRequestDto } from '../dtos/google-login-request.dto';
-import { GoogleLoginResponseDto } from '@/libs/auth/presentation/dtos/google-login-response.dto';
-import { GoogleLoginModel } from '@/libs/auth/domain/models/google-login.model';
+import { ResponseModel } from '@/libs/shared/models/response.model';
+import { GoogleLoginRequestDto } from '../dtos/google-login.request.dto';
+import { GoogleLoginResponseDto } from '@/libs/auth/presentation/dtos/google-login.response.dto';
+import { GoogleLoginInput } from '@/libs/auth/application/dtos/google-login.input';
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
-import { Logger } from 'nestjs-pino';
 import { PinoLoggerService } from '@/libs/shared/logger/pino-logger.service';
-
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
-import { Type } from 'class-transformer';
-export class TestParamDto {
-  @IsString()
-  @IsNotEmpty()
-  message: string;
-
-  @IsNumber()
-  @IsNotEmpty()
-  @Type(() => Number)
-  d: number;
-}
+import { GoogleLoginOutput } from '@libs/auth/application/dtos/google-login.output';
 
 @Controller('google')
 export class GoogleAuthController {
@@ -40,13 +24,17 @@ export class GoogleAuthController {
     const loginModel = this.mapper.map(
       loginDto,
       GoogleLoginRequestDto,
-      GoogleLoginModel,
+      GoogleLoginInput,
     );
-    console.log('mapped login model:', loginModel);
+
     const result = await this.authService.login(loginModel);
-    console.log('Login result:', result);
-    const responseDto = GoogleLoginResponseDto.fromLoginModel(result);
-    console.log('Response DTO:', responseDto);
+
+    const responseDto = this.mapper.map(
+      result,
+      GoogleLoginOutput,
+      GoogleLoginResponseDto,
+    );
+
     return ResponseModel.ok(responseDto);
   }
 

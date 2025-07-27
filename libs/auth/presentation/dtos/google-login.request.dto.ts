@@ -31,24 +31,4 @@ export class GoogleLoginRequestDto {
   @IsString()
   @AutoMap()
   prompt?: string;
-
-  constructor(
-    accessToken: string,
-    tokenType: string,
-    expiresIn?: number,
-    scope?: string,
-    authUser?: number,
-    prompt?: string,
-  ) {
-    this.accessToken = accessToken;
-    this.tokenType = tokenType;
-    this.expiresIn = expiresIn;
-    this.scope = scope;
-    this.authUser = authUser;
-    this.prompt = prompt;
-
-    if (!accessToken || !tokenType) {
-      throw new Error('access_token and token_type are required fields');
-    }
-  }
 }

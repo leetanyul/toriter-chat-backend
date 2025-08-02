@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { GoogleLoginInput } from '@libs/auth/application/dtos/google-login.input';
-import { GoogleLoginOutput } from '@libs/auth/application/dtos/google-login.output';
+import { GoogleLoginInput } from '@/libs/auth/application/model/google-login.input';
+import { GoogleLoginOutput } from '@/libs/auth/application/model/google-login.output';
 import { AuthService } from '@libs/auth/domain/services/auth.service';
 import { GoogleAuthUseCase } from '@libs/auth/application/contracts/google-auth.use-case';
 import { GoogleOauthService } from '@libs/auth/infrastructure/contracts/google-oauth.service';
@@ -8,11 +8,13 @@ import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { InfraGoogleLoginRequestDto } from '@libs/auth/infrastructure/dtos/infra-google-login.request.dto';
 import { InfraGoogleLoginResponseDto } from '@libs/auth/infrastructure/dtos/infra-google-login.response.dto';
+import { GoogleUserBridgeUseCaseImpl } from '@libs/auth/application/use-case/google-user-bridge.use-case.impl';
 
 @Injectable()
 export class GoogleAuthUseCaseImpl implements GoogleAuthUseCase {
   constructor(
     private readonly googleOauthService: GoogleOauthService,
+    private readonly googleUserBridge: GoogleUserBridgeUseCaseImpl,
     @InjectMapper() private readonly mapper: Mapper,
   ) {}
 
@@ -33,10 +35,8 @@ export class GoogleAuthUseCaseImpl implements GoogleAuthUseCase {
     );
 
     AuthService.isVerified(result);
+    await this.googleUserBridge.createOrLoginUser(result);
 
-    const testUser: TestUserId = {
-      userId: '00000000-0000-0000-0000-000000000003',
-    };
     return result;
   }
 }

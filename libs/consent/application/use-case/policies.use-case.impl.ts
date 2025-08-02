@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PoliciesUseCase as PoliciesUseCase } from '@libs/consent/application/contracts/policies.use-case';
-import { GetLatestPoliciesInput } from '@libs/consent/application/dtos/get-latest-policies.input';
-import { LatestPolicyOutput } from '@libs/consent/application/dtos/get-latest-policies.output';
+import { GetLatestPoliciesInput } from '@/libs/consent/application/model/get-latest-policies.input';
+import { LatestPolicyOutput } from '@/libs/consent/application/model/get-latest-policies.output';
 import { ConsentRepository } from '@libs/consent/infrastructure/contracts/consent.repository';
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';

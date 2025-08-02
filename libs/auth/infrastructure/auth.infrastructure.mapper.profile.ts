@@ -1,6 +1,6 @@
 import { createMap } from '@automapper/core';
-import { GoogleLoginInput } from '@libs/auth/application/dtos/google-login.input';
-import { GoogleLoginOutput } from '@libs/auth/application/dtos/google-login.output';
+import { GoogleLoginInput } from '@/libs/auth/application/model/google-login.input';
+import { GoogleLoginOutput } from '@/libs/auth/application/model/google-login.output';
 import { InfraGoogleLoginRequestDto } from '@libs/auth/infrastructure/dtos/infra-google-login.request.dto';
 import { InfraGoogleLoginResponseDto } from '@libs/auth/infrastructure/dtos/infra-google-login.response.dto';
 import { Injectable } from '@nestjs/common';

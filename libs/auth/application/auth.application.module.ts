@@ -9,8 +9,12 @@ import { JwtUseCase } from '@libs/auth/application/use-case/jwt.use-case';
 import { SharedModule } from '@libs/shared/shared.module';
 import { GoogleAuthUseCase } from '@libs/auth/application/contracts/google-auth.use-case';
 
+import { GoogleUserBridgeUseCaseImpl } from '@libs/auth/application/use-case/google-user-bridge.use-case.impl';
+import { AuthApplicationMapperProfile } from '@libs/auth/application/auth.application.mapper.profile';
+import { UserApplicationModule } from '@libs/user/application/user.application.module';
+
 @Module({
-  imports: [AuthInfrastructureModule, SharedModule],
+  imports: [AuthInfrastructureModule, SharedModule, UserApplicationModule],
   providers: [
     {
       provide: GoogleAuthUseCase,
@@ -21,7 +25,9 @@ import { GoogleAuthUseCase } from '@libs/auth/application/contracts/google-auth.
     AuthService,
     JwtUseCase,
     JwtService,
+    GoogleUserBridgeUseCaseImpl,
+    AuthApplicationMapperProfile,
   ],
-  exports: [GoogleAuthUseCase, JwtUseCase],
+  exports: [GoogleAuthUseCase, JwtUseCase, AuthApplicationMapperProfile],
 })
 export class AuthApplicationModule {}

@@ -5,8 +5,8 @@ import { InjectMapper } from '@automapper/nestjs';
 
 import { GetLatestPoliciesRequestDto } from '../dtos/get-latest-policies.request.dto';
 import { LatestPolicyResponseDto } from '../dtos/get-latest-policies.response.dto';
-import { GetLatestPoliciesInput } from '@libs/consent/application/dtos/get-latest-policies.input';
-import { LatestPolicyOutput } from '@libs/consent/application/dtos/get-latest-policies.output';
+import { GetLatestPoliciesInput } from '@/libs/consent/application/model/get-latest-policies.input';
+import { LatestPolicyOutput } from '@/libs/consent/application/model/get-latest-policies.output';
 import { ResponseModel } from '@libs/shared/models/response.model';
 
 @Controller('policy')

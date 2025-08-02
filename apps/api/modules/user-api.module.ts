@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from '@libs/user/user..module';
+import { UserModule } from '@/libs/user/user.module';
 import { SharedModule } from '@libs/shared/shared.module';
 /**
  * 애플리케이션(앱) 영역에서 사용할 Auth 전용 모듈.

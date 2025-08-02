@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { GoogleLoginOutput } from '@libs/auth/application/dtos/google-login.output';
+import { GoogleLoginOutput } from '@/libs/auth/application/model/google-login.output';
 
 export class GoogleLoginResponseDto {
   @Expose()

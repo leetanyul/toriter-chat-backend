@@ -3,11 +3,11 @@ import { GoogleAuthUseCase } from '@libs/auth/application/contracts/google-auth.
 import { ResponseModel } from '@libs/shared/models/response.model';
 import { GoogleLoginRequestDto } from '../dtos/google-login.request.dto';
 import { GoogleLoginResponseDto } from '@libs/auth/presentation/dtos/google-login.response.dto';
-import { GoogleLoginInput } from '@libs/auth/application/dtos/google-login.input';
+import { GoogleLoginInput } from '@/libs/auth/application/model/google-login.input';
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { PinoLoggerService } from '@libs/shared/logger/pino-logger.service';
-import { GoogleLoginOutput } from '@libs/auth/application/dtos/google-login.output';
+import { GoogleLoginOutput } from '@/libs/auth/application/model/google-login.output';
 
 @Controller('google')
 export class GoogleAuthController {

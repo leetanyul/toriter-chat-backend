@@ -1,4 +1,4 @@
-import { GoogleLoginOutput } from '../../application/dtos/google-login.output';
+import { GoogleLoginOutput } from '../../application/model/google-login.output';
 
 export class AuthService {
   static assertEmailVerified(googleUser: GoogleLoginOutput): void {

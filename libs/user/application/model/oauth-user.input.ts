@@ -1,6 +1,6 @@
 import { AutoMap } from '@automapper/classes';
 
-export class GoogleUserInput {
+export class OauthUserInput {
   @AutoMap()
   sub: string;
 
@@ -8,17 +8,8 @@ export class GoogleUserInput {
   name: string;
 
   @AutoMap()
-  givenName: string;
-
-  @AutoMap()
-  familyName: string;
-
-  @AutoMap()
   picture: string;
 
   @AutoMap()
   email: string;
-
-  @AutoMap()
-  emailVerified: boolean;
 }

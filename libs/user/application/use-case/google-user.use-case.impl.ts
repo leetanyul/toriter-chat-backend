@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { GoogleUserCase } from '@/libs/user/application/contracts/google-user.use-case';
-import { GoogleUserInput } from '@/libs/user/application/model/google-user.input';
-import { GoogleUserOutput } from '@/libs/user/application/model/google-user.output';
+import { OauthUserInput } from '@/libs/user/application/model/oauth-user.input';
+import { UserOutput } from '@/libs/user/application/model/user.output';
 import { UserRepository } from '@libs/user/infrastructure/contracts/user.repository';
 import { InfraGoogleUserQueryDto } from '@libs/user/infrastructure/dtos/infra-google-user.query.dto';
-import { InfraGoogleUserExistsResultDto } from '@/libs/user/infrastructure/dtos/infra-google-user.exist.result.dto';
+import { UserFindResultDto } from '@/libs/user/infrastructure/dtos/infra-user.result.dto';
 import { InjectMapper } from '@automapper/nestjs';
 import { Mapper } from '@automapper/core';
 import { InfraGoogleUserFindQueryDto } from '@libs/user/infrastructure/dtos/infra-google-user.find.query.dto';
@@ -17,12 +17,10 @@ export class GoogleUserCaseImpl implements GoogleUserCase {
     @InjectMapper() private readonly mapper: Mapper,
   ) {}
 
-  async checkOrCreateGoogleUser(
-    input: GoogleUserInput,
-  ): Promise<GoogleUserOutput> {
+  async checkOrCreateGoogleUser(input: OauthUserInput): Promise<UserOutput> {
     const infraInput = this.mapper.map(
       input,
-      GoogleUserInput,
+      OauthUserInput,
       InfraGoogleUserQueryDto,
     );
 
@@ -36,20 +34,22 @@ export class GoogleUserCaseImpl implements GoogleUserCase {
 
     findQuery.providerId = OauthProvider.GOOGLE;
 
-    let rawData =
+    let userData =
       await this.userRepository.findByOauthProviderAndSub(findQuery);
 
-    if (!rawData.exists) {
+    if (!userData) {
       const result = await this.userRepository.createOauthUser(infraInput);
       if (!result.success) {
         throw new Error('User creation failed');
       }
+
+      userData = await this.userRepository.findByOauthProviderAndSub(findQuery);
     }
 
-    return this.mapper.map(
-      rawData,
-      InfraGoogleUserExistsResultDto,
-      GoogleUserOutput,
-    );
+    if (!userData) {
+      throw new Error('User lookup after creation failed');
+    }
+
+    return this.mapper.map(userData, UserFindResultDto, UserOutput);
   }
 }

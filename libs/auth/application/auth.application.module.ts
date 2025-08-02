@@ -9,25 +9,46 @@ import { JwtUseCase } from '@libs/auth/application/use-case/jwt.use-case';
 import { SharedModule } from '@libs/shared/shared.module';
 import { GoogleAuthUseCase } from '@libs/auth/application/contracts/google-auth.use-case';
 
-import { GoogleUserBridgeUseCaseImpl } from '@libs/auth/application/use-case/google-user-bridge.use-case.impl';
+import { GoogleUserBridgeUseCaseImpl } from '@/libs/auth/application/use-case/bridge/google-user-bridge.use-case.impl';
 import { AuthApplicationMapperProfile } from '@libs/auth/application/auth.application.mapper.profile';
 import { UserApplicationModule } from '@libs/user/application/user.application.module';
+import { GoogleUserBridgeUseCase } from '@/libs/auth/application/contracts/bridge/google-user-bridge.use-case';
+import { PoliciesBridgeUseCase } from '@/libs/auth/application/contracts/bridge/policies-bridge.use-case';
+import { PoliciesBridgeUseCaseImpl } from '@libs/auth/application/use-case/bridge/policies-bridge.use-case.impl';
+import { ConsentApplicationModule } from '@libs/consent/application/consent.application.module';
 
 @Module({
-  imports: [AuthInfrastructureModule, SharedModule, UserApplicationModule],
+  imports: [
+    AuthInfrastructureModule,
+    SharedModule,
+    UserApplicationModule,
+    ConsentApplicationModule,
+  ],
   providers: [
     {
       provide: GoogleAuthUseCase,
       useClass: GoogleAuthUseCaseImpl,
+    },
+    {
+      provide: GoogleUserBridgeUseCase,
+      useClass: GoogleUserBridgeUseCaseImpl,
+    },
+    {
+      provide: PoliciesBridgeUseCase,
+      useClass: PoliciesBridgeUseCaseImpl,
     },
     ConfigService,
     ErrorHandlerService,
     AuthService,
     JwtUseCase,
     JwtService,
-    GoogleUserBridgeUseCaseImpl,
     AuthApplicationMapperProfile,
   ],
-  exports: [GoogleAuthUseCase, JwtUseCase, AuthApplicationMapperProfile],
+  exports: [
+    GoogleAuthUseCase,
+    JwtUseCase,
+    AuthApplicationMapperProfile,
+    PoliciesBridgeUseCase,
+  ],
 })
 export class AuthApplicationModule {}

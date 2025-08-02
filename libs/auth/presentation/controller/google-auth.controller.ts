@@ -2,12 +2,12 @@ import { Controller, Post, Body, Get, Req } from '@nestjs/common';
 import { GoogleAuthUseCase } from '@libs/auth/application/contracts/google-auth.use-case';
 import { ResponseModel } from '@libs/shared/models/response.model';
 import { GoogleLoginRequestDto } from '../dtos/google-login.request.dto';
-import { GoogleLoginResponseDto } from '@libs/auth/presentation/dtos/google-login.response.dto';
+import { GoogleLoginResponseDto as UserLoginResponseDto } from '@/libs/auth/presentation/dtos/user-login.response.dto';
 import { GoogleLoginInput } from '@/libs/auth/application/model/google-login.input';
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { PinoLoggerService } from '@libs/shared/logger/pino-logger.service';
-import { GoogleLoginOutput } from '@/libs/auth/application/model/google-login.output';
+import { UserLoginOutput } from '@libs/auth/application/model/user-login.output';
 
 @Controller('google')
 export class GoogleAuthController {
@@ -20,7 +20,7 @@ export class GoogleAuthController {
   @Post('login')
   async login(
     @Body() loginDto: GoogleLoginRequestDto,
-  ): Promise<ResponseModel<GoogleLoginResponseDto>> {
+  ): Promise<ResponseModel<UserLoginResponseDto>> {
     const loginModel = this.mapper.map(
       loginDto,
       GoogleLoginRequestDto,
@@ -31,8 +31,8 @@ export class GoogleAuthController {
 
     const responseDto = this.mapper.map(
       result,
-      GoogleLoginOutput,
-      GoogleLoginResponseDto,
+      UserLoginOutput,
+      UserLoginResponseDto,
     );
 
     return ResponseModel.ok(responseDto);

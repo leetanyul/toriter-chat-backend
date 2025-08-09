@@ -5,7 +5,7 @@ export class UserFindResultDto {
   id: string;
 
   @AutoMap()
-  name: string;
+  name: string | null;
 
   @AutoMap()
   nickname: string;
@@ -14,29 +14,29 @@ export class UserFindResultDto {
   email: string;
 
   @AutoMap()
-  profile_image: string;
+  profileImage: string | null;
 
   @AutoMap()
-  deleted_at: Date;
+  deletedAt: Date | null;
 
   @AutoMap()
-  login_fail_count: number;
+  loginFailCount: number;
 
   @AutoMap()
-  email_verified: boolean;
+  emailVerified: boolean;
 
   @AutoMap()
-  oauth_provider: number;
+  oauthProvider: number;
 
   @AutoMap()
-  oauth_id: string;
+  oauthId: string;
 
   @AutoMap()
-  status_id: number;
+  statusId: number;
 
   @AutoMap()
-  role_id: number;
+  roleId: number;
 
   @AutoMap()
-  phone_number: string;
+  phoneNumber: string | null;
 }
